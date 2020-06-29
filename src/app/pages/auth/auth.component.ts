@@ -1,41 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss']
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnDestroy {
   loaded = false;
   isViewLogin = true;
 
-  loginForm: FormGroup;
+  constructor(private fb: FormBuilder, private activatedRoute: ActivatedRoute) {
+    this.observeParam();
+   }
 
-  constructor(private fb: FormBuilder) { }
+   observeParam() {
+     this.activatedRoute.queryParamMap
+     .pipe(untilDestroyed(this))
+     .subscribe(param => {
+      this.isViewLogin = param.get('type') !== 'register';
+     });
+   }
 
-  initLoginForm() {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: [Validators.required],
-      confirmPassword: [this.confirmPasswordValidator]
-    });
-  }
-
-  ngOnInit() {
-    this.loaded = true;
-  }
-
-  setViewStateToLogin() {
-    this.isViewLogin = true;
-  }
-
-  setViewStateToRegister() {
-    this.isViewLogin = false;
-  }
-
-   confirmPasswordValidator(control: AbstractControl) {
-    console.log(control.value);
-  }
-
+   ngOnDestroy() {
+     // needed for untilDestroyed operator
+   }
 }

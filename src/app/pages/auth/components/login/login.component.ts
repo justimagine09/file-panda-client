@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router, private activatedRoute: ActivatedRoute) {
     this.initLoginForm();
   }
 
@@ -22,6 +23,16 @@ export class LoginComponent implements OnInit {
 
   get controls() {
     return this.loginForm.controls;
+  }
+
+  setViewStateToRegister() {
+    this.router.navigate(
+      [],
+      {
+        relativeTo: this.activatedRoute,
+        queryParams: { type: 'register' }
+      }
+    );
   }
 
   ngOnInit() {}

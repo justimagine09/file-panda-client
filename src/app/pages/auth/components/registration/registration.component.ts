@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { untilDestroyed } from 'ngx-take-until-destroy';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -10,7 +11,7 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
 export class RegistrationComponent implements OnInit, OnDestroy {
   registrationForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private router: Router, private activatedRoute: ActivatedRoute) {
     this.initRegistrationForm();
   }
 
@@ -31,6 +32,16 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.controls.confirmPassword.updateValueAndValidity();
       }
     });
+  }
+
+  setViewStateToRegister() {
+    this.router.navigate(
+      [],
+      {
+        relativeTo: this.activatedRoute,
+        queryParams: { type: 'login' }
+      }
+    );
   }
 
   get controls() {

@@ -7,6 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { LoginComponent } from './components/login/login.component';
+import { AuthRoutingModule } from './auth-routing-module';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { LoginComponent } from './components/login/login.component';
     MatCardModule,
     ReactiveFormsModule,
     FormsModule,
+    AuthRoutingModule,
   ],
   declarations: [AuthComponent, LoginComponent, RegistrationComponent],
   exports: [AuthComponent]

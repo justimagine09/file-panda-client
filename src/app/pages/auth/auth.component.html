@@ -1,4 +1,4 @@
-<div class="login-wrapper container" *ngIf="loaded">
+<div class="login-wrapper container">
   <div class="row justify-content-center">
     <div class="col-lg-4 col-md-7 col-sm-12">
       <form class="login-form">
@@ -8,7 +8,8 @@
         
         <div class="controls">
           <h5><a class="controls-link" [class.active]="isViewLogin">Login</a> | <a class="controls-link"  [class.active]="!isViewLogin">Register</a></h5>
-          <app-registration></app-registration>
+          <app-login *ngIf="isViewLogin"></app-login>
+          <app-registration *ngIf="!isViewLogin"></app-registration>
         </div>
       </form>
     </div>
