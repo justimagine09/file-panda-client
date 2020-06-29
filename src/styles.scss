@@ -18,3 +18,29 @@ $app-theme:   mat-light-theme($app-primary, $app-accent, $app-warn);
 .text-success {
     color: $primary !important;
 }
+
+.primary-button {
+    background-color: $primary;
+    color: $primary-foreground;
+}
+
+.primary-button-color {
+    color: $primary !important;
+}
+
+.form-control {
+    background: #f3f3f3; 
+    border-style: none !important;
+
+    &.controls-invalid {
+        border-left-style: solid !important;
+        border-left-color: $danger;
+        border-width: 5px;
+    }
+
+    &.controls-valid {
+        border-left-style: solid !important;
+        border-left-color: #95a772;
+        border-width: 5px;
+    }
+}
