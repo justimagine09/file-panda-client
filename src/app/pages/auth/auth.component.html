@@ -1,7 +1,7 @@
 <div class="login-wrapper container" *ngIf="loaded">
   <div class="row justify-content-center">
     <div class="col-lg-4 col-md-7 col-sm-12">
-      <form class="login-form">
+      <form class="login-form" []>
         <div class="login-form-logo-wrapper d-flex align-items-center justify-content-center">
           <img src="assets/pngs/logo.png"/>
         </div>
@@ -27,7 +27,7 @@
             </ng-container>
 
             <ng-container *ngSwitchDefault>
-              <button mat-raised-button class="primary-button">Register</button>
+              <button mat-raised-button class="primary-button" type="button">Register</button>
               <a mat-button color="primary" type="button" class="primary-button-color" (click)="setViewStateToLogin()">Login existing account.</a>
             </ng-container>
           </div>
