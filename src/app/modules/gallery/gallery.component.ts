@@ -26,8 +26,6 @@ export class GalleryComponent implements OnInit {
     this.dataColumns = columns;
   }
 
-  @Output()
-
   constructor() { }
 
   ngOnInit() {
