@@ -6,22 +6,8 @@
     flex-flow: column;
     justify-content: center;
 
-    .primary-button {
-        background-color: #95a772;
-        color: #fff;
-    }
-    
-    .primary-button-color {
-        color: #95a772;
-    }    
-
-    .controls {
-        padding: 15px;
-        padding-bottom: 32px;
-    }
-    
-    .controls-link.active {
-        color: #95a772;
+    .logo-wapper {
+        position: relative;
     }
 
     .login-form {
@@ -29,15 +15,20 @@
         border-radius: 8px;
         background-color: #fff;
         overflow: hidden;
-
+    
         &-logo-wrapper {
             background-color: #F0F0F0;
             height: 250px;
         }
+
+        .controls-link.active {
+            color: #95a772;
+        }
     }
 
-    .logo-wapper {
-        position: relative;
+    .controls {
+        padding: 15px;
+        padding-bottom: 32px;
     }
 
     .controls-wrapper {

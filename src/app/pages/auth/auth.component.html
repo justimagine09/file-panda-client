@@ -1,36 +1,14 @@
 <div class="login-wrapper container" *ngIf="loaded">
   <div class="row justify-content-center">
     <div class="col-lg-4 col-md-7 col-sm-12">
-      <form class="login-form" []>
+      <form class="login-form">
         <div class="login-form-logo-wrapper d-flex align-items-center justify-content-center">
           <img src="assets/pngs/logo.png"/>
         </div>
         
         <div class="controls">
           <h5><a class="controls-link" [class.active]="isViewLogin">Login</a> | <a class="controls-link"  [class.active]="!isViewLogin">Register</a></h5>
-          
-          <div class="form-group mt-4">
-            <input class="form-control" placeholder="Email" style="background-color: rgb(243, 243, 243); border-style: none !important;"/>
-          </div>
-
-          <div class="form-group">
-            <input class="form-control" style="background-color: rgb(243, 243, 243); border-style: none !important;" placeholder="Password"/>
-          </div>
-
-          <div class="form-group" *ngIf="isViewLogin">
-            <input class="form-control" style="background-color: rgb(243, 243, 243); border-style: none !important;" placeholder="Confirm Password"/>
-          </div>
-          <div class="d-flex justify-content-between mt-4" [ngSwitch]="isViewLogin">
-            <ng-container *ngSwitchCase="true">
-              <a mat-button color="primary" type="button" class="primary-button-color"  (click)="setViewStateToRegister()">Create new account.</a>
-              <button mat-raised-button class="primary-button">Login</button>
-            </ng-container>
-
-            <ng-container *ngSwitchDefault>
-              <button mat-raised-button class="primary-button" type="button">Register</button>
-              <a mat-button color="primary" type="button" class="primary-button-color" (click)="setViewStateToLogin()">Login existing account.</a>
-            </ng-container>
-          </div>
+          <app-login></app-login>
         </div>
       </form>
     </div>
