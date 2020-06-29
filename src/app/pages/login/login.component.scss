@@ -15,13 +15,13 @@
         color: #95a772;
     }    
 
-    .login-link.active {
-        color: #95a772;
-    }
-
     .controls {
         padding: 15px;
         padding-bottom: 32px;
+    }
+    
+    .controls-link.active {
+        color: #95a772;
     }
 
     .login-form {
