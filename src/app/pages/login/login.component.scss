@@ -1,0 +1,64 @@
+@import '../../../assets/scss/variables.scss';
+
+:host {
+    flex-grow: 1;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+
+    .primary-button {
+        background-color: #95a772;
+        color: #fff;
+    }
+    
+    .primary-button-color {
+        color: #95a772;
+    }    
+
+    .login-link.active {
+        color: #95a772;
+    }
+
+    .controls {
+        padding: 15px;
+        padding-bottom: 32px;
+    }
+
+    .login-form {
+        box-shadow: 0 0 4px rgba(158, 158, 158, 0.4);
+        border-radius: 8px;
+        background-color: #fff;
+        overflow: hidden;
+
+        &-logo-wrapper {
+            background-color: #F0F0F0;
+            height: 250px;
+        }
+    }
+
+    .logo-wapper {
+        position: relative;
+    }
+
+    .controls-wrapper {
+        padding: 15px;
+        padding-bottom: 24px;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .logo-wapper {
+        max-width: 100% !important;
+    }
+
+    .col-lg-4.col-md-7.col-sm-12 {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+
+        .login-form  {
+            min-height: 100vh;
+            border-radius: 0;
+            box-shadow: none;
+        }
+    }
+}
