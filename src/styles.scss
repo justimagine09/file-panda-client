@@ -1,5 +1,6 @@
 @import '~bootstrap/scss/bootstrap';
 @import '~@angular/material/theming';
+@import 'assets/scss/variables.scss';
 
 @include mat-core();    
 
@@ -9,3 +10,11 @@ $app-warn:  mat-palette($mat-orange, A200, A100, A400);
 $app-theme:   mat-light-theme($app-primary, $app-accent, $app-warn);
 
 @include angular-material-theme($app-theme);
+
+.text-danger {
+    color: $danger !important;
+}
+
+.text-success {
+    color: $primary !important;
+}
