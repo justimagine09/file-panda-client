@@ -30,14 +30,19 @@
             *Required Field
         </small>
     </div>  
+
+    <small class="text-danger pb-0 mb-0" *ngIf="isUnAuthorized">Incorrect Email or Password!</small>
     
     <div class="d-flex justify-content-between mt-4">
-        <a 
+        <button
             mat-button 
             color="primary"
             type="button"
             class="primary-button-color" 
-            (click)="setViewStateToRegister()">Create new account.</a>
-        <button mat-raised-button class="primary-button" [disabled]="loginForm.invalid">Login</button>
+            (click)="setViewStateToRegister()" [disabled]="isLoginLoading">Create new account.</button>
+        <button 
+            mat-raised-button class="primary-button" 
+            [disabled]="loginForm.invalid || isLoginLoading" 
+            (click)="login()">{{isLoginLoading ? 'Please wait..' : 'Login'}}</button>
     </div>
 </ng-container>
