@@ -8,6 +8,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthRoutingModule } from './auth-routing-module';
+import { CoreModule } from 'src/app/core/core.module';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { AuthRoutingModule } from './auth-routing-module';
     ReactiveFormsModule,
     FormsModule,
     AuthRoutingModule,
+    CoreModule,
   ],
   declarations: [AuthComponent, LoginComponent, RegistrationComponent],
   exports: [AuthComponent]

@@ -31,6 +31,8 @@
                 Invalid Email Address
             </ng-container>
         </small>
+
+        <small class="text-danger d-block" *ngFor="let err of emailErrors">{{err}}</small>
     </div>
     
     <div class="form-group">
@@ -43,9 +45,15 @@
             [class.controls-invalid]="controls.password.invalid  && (controls.password.dirty || controls.password.touched)"
             [class.controls-valid]="controls.password.valid  && (controls.password.dirty || controls.password.touched)"
         />
-        <small class="text-danger" *ngIf="controls.password.invalid && (controls.dirty || controls.password.touched)">
+        <small class="text-danger" *ngIf="controls.password.invalid && (controls.dirty || controls.password.touched) && controls.password.errors.required">
             *Required Field
         </small>
+        
+        <ng-container *ngIf="controls.password.value.length as passLength">
+            <small class="text-danger" *ngIf="passLength < 6">
+                0{{passLength || 0}} - Min Length (6)
+            </small>
+        </ng-container>
     </div>  
 
     <div class="form-group">
@@ -53,26 +61,31 @@
             placeholder="Confirm Password"
             type="password"
             class="form-control"
-            formControlName="confirmPassword" [class.controls-invalid]="controls.confirmPassword.invalid  && (controls.confirmPassword.dirty || controls.password.touched)"
-            [class.controls-valid]="controls.confirmPassword.valid  && (controls.confirmPassword.dirty || controls.confirmPassword.touched)"
+            formControlName="password_confirmation" [class.controls-invalid]="controls.password_confirmation.invalid  && (controls.password_confirmation.dirty || controls.password.touched)"
+            [class.controls-valid]="controls.password_confirmation.valid  && (controls.password_confirmation.dirty || controls.password_confirmation.touched)"
         />
-        <small class="text-danger" *ngIf="controls.confirmPassword.invalid && (controls.dirty || controls.confirmPassword.touched)">
-            <ng-container *ngIf="controls.confirmPassword.errors.required">
+        <small class="text-danger" *ngIf="controls.password_confirmation.invalid && (controls.dirty || controls.password_confirmation.touched)">
+            <ng-container *ngIf="controls.password_confirmation.errors.required">
                 *Required Field
             </ng-container>
 
-            <ng-container *ngIf="controls.confirmPassword.errors.isEqualTo">
+            <ng-container *ngIf="!controls.password_confirmation.errors.required && controls.password_confirmation.errors.isEqualTo">
                 Incorrect Confirmation Password
             </ng-container>
         </small>
     </div>  
     
     <div class="d-flex justify-content-between mt-4">
-        <button mat-raised-button class="primary-button" [disabled]="registrationForm.invalid">Register</button>
-        <a 
+        <button mat-raised-button  
+            type="button"
+            class="primary-button" 
+            [disabled]="registrationForm.invalid || isRegisterLoading"
+            (click)="register()">{{isRegisterLoading ? 'Please wait..': 'Register'}}</button>
+        <button
             mat-button 
             type="button"
             class="primary-button-color" 
-            (click)="setViewStateToRegister()">Login existing account.</a>
+            (click)="setViewStateToRegister()"
+            [disabled]="isRegisterLoading">Login existing account.</button>
     </div>
 </ng-container>
