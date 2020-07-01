@@ -1,14 +1,22 @@
-<nav class="main-nav-desktop">
-  <div class="container d-flex align-items-center">
-    <img src="assets/pngs/logo.png" height="40"/>
-  </div>
-</nav>
+<div class="main-header">
+  <div class="container d-flex w-100 align-items-center">
+    <img src="assets/pngs/logo.png"  height="48" class="mr-2 logo--desktop"/>
+    <img src="assets/pngs/logo-mobile.png" height="48" class="mr-2 logo--mobile"/>
+    <app-search-files></app-search-files>
+    
+   
+    <div class="ml-auto">
+      <button mat-button [matMenuTriggerFor]="addFile"><mat-icon>add</mat-icon> <span class="d-lg-inline d-md-inline d-sm-none">Add File</span></button>
+      <mat-menu #addFile="matMenu">
+        <button mat-menu-item>JPG</button>
+        <button mat-menu-item>PDF</button>
+        <button mat-menu-item>MP4</button>
+      </mat-menu>
 
-<nav class="main-nav-mobile">
-  <div class="main-nav-mobile--wrapper">
-    <img src="assets/svgs/nav-mobile.svg" class="main-nav-mobile--bg"/>
-    <div class="container">
-      <img src="assets/pngs/logo.png" height="40"/>
+      <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>Logout</button>
+      </mat-menu>
     </div>
   </div>
-</nav>
+</div>
