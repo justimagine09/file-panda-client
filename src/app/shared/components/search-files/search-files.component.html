@@ -1,0 +1,32 @@
+<div class="search-wrapper desktop"> 
+    <div class="search-wrapper-controls d-flex align-items-center" (click)="openMobileSearch()">
+        <mat-icon class="mat-icon">search</mat-icon>
+        <input placeholder="Search files.."/>
+    </div>
+
+    <div class="search-wrapper--result"></div>
+</div>
+
+<div class="search-wrapper mobile"> 
+    <div class="search-wrapper--mobile-controls d-flex align-items-center" (click)="openMobileSearch()">
+        <mat-icon class="mat-icon">search</mat-icon>
+        <small>Search files...</small>
+    </div>
+    <div class="search-mobile d-flex flex-column" [class.is-open]="isMobileSearchOpen">
+        <div class="search-mobile--control d-flex align-items-center container">
+            <mat-icon class="mat-icon">search</mat-icon>
+            <input placeholder="Search files.." class="flex-grow-1"/>
+            <mat-icon class="mat-icon" (click)="closeMobileSearch()">close</mat-icon>
+        </div>
+            
+        <ul class="search-mobile--result flex-grow-1 container">
+            <li class="d-flex align-items-center">
+                <div class="image"></div>
+                <div class="descriptions">
+                    <div>Title</div>
+                    <div>Descriptions</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
