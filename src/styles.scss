@@ -44,3 +44,7 @@ $app-theme:   mat-light-theme($app-primary, $app-accent, $app-warn);
         border-width: 5px;
     }
 }
+
+*:focus {
+    outline-style: none !important;
+}

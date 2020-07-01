@@ -1,1 +1,51 @@
-<p>mp4-form works!</p>
+<div>
+    <h1>UPLOAD MP4 FILE</h1>
+    <p>Drag File to the drop zone or click to browse</p>
+    <ngx-dropzone (change)="onSelect($event)" multiple="false" accept="video/mp4" *ngIf="files.length <= 0">
+        <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+        <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+        </ngx-dropzone-preview>
+    </ngx-dropzone>
+
+    <div class="row" *ngIf="files.length > 0">
+        <div class="col-lg-6 col-md-7 col-sm-12">        
+        <ngx-dropzone-video-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f">
+            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+        </ngx-dropzone-video-preview>
+        </div>
+        
+        <div class="col-lg-6 col-md-5 col-sm-12">  
+            <form class="pt-2 pb-2 d-flex flex-column">
+                <mat-form-field>
+                  <mat-label>Title</mat-label>
+                  <input matInput placeholder="Title">
+                </mat-form-field>
+              
+                <mat-form-field>
+                  <mat-label>Description</mat-label>
+                  <textarea matInput placeholder="Description"></textarea>
+                </mat-form-field>
+
+                <div class="text-right">
+                    <button mat-button class="mr-2">CANCEL</button>
+                    <button mat-button class="primary-button">SUBMIT</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-12">
+            <h4 class="mt-2">Select thumbnail</h4>
+            <div>
+                <img class="m-1" [class.selected-index]="selectedIndex === i" (click)="selectedIndex = i" height="100px" *ngFor="let thumbnail of thumbnails; let i = index" [class.d-none]="i == 0" [src]="thumbnail.objectUrl | safe:'resourceUrl'" />
+                <div (click)="customThumbnail.showFileSelector()" class="add-custom-thumbnail d-flex justify-content-center align-items-center m-2">
+                    <mat-icon>add</mat-icon>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <ngx-dropzone #customThumbnail (change)="onAddedNewThumbnail($event)" multiple="false" accept="image/jpeg" class="d-none">
+    </ngx-dropzone>
+</div>

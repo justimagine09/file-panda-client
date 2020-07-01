@@ -5,12 +5,14 @@ import { SearchFilesComponent } from './components/search-files/search-files.com
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import { SafePipe } from './pipe/safe.pipe';
 
 @NgModule({
     declarations: [
         HeaderComponent,
         FooterComponent,
         SearchFilesComponent,
+        SafePipe,
     ],
     imports: [
         MatIconModule,
@@ -20,6 +22,8 @@ import { MatButtonModule } from '@angular/material/button';
     exports: [
         FooterComponent,
         HeaderComponent,
-    ]
+        SafePipe
+    ],
+    providers: [SafePipe]
 })
 export class SharedModule {}
