@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SafePipe } from '../../../../shared/pipe/safe.pipe';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-mp4-form',
@@ -9,13 +10,13 @@ import { SafePipe } from '../../../../shared/pipe/safe.pipe';
 export class Mp4FormComponent implements OnInit {
   files: File[] = [];
 
-  thumbnails = [];
+  thumbnails: Array<{objectUrl: any, file?: any, type: string}> = [];
 
   thumbnail = null;
 
   selectedIndex = 0;
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
 
   ngOnInit() {
   }
@@ -23,9 +24,11 @@ export class Mp4FormComponent implements OnInit {
   onAddedNewThumbnail(event) {
     this.thumbnails.push({
       objectUrl: URL.createObjectURL(event.addedFiles[0]),
-      file: event[0],
+      file: event.addedFiles[0],
       type: 'file'
     });
+
+    console.log(event.addedFiles[0]);
 
     this.selectedIndex = this.thumbnails.length - 1;
   }
@@ -37,6 +40,37 @@ export class Mp4FormComponent implements OnInit {
   
   onRemove(event) {
     this.files.splice(this.files.indexOf(event), 1);
+  }
+
+  async uploadFile() {
+    const fb = new FormData();
+    fb.append('video', this.files[0], 'video/mp4');
+    fb.append('thumbnail', this.thumbnails[this.selectedIndex].file || this.thumbnails[this.selectedIndex].blob);
+    
+    this.httpClient.post('http://localhost:8000/api/file', fb, {observe: 'response'})
+    .subscribe(value => console.log(value), err => console.log(err));
+  }
+
+  private async readFile(file: File): Promise<string | ArrayBuffer> {
+    return new Promise<string | ArrayBuffer>((resolve, reject) => {
+      const reader = new FileReader();
+  
+      reader.onload = e => {
+        return resolve((e.target as FileReader).result);
+      };
+  
+      reader.onerror = e => {
+        console.error(`FileReader failed on file ${file.name}.`);
+        return reject(null);
+      };
+  
+      if (!file) {
+        console.error('No file to read.');
+        return reject(null);
+      }
+  
+      reader.readAsDataURL(file);
+    });
   }
 
   public takeSnapshot(file) {
