@@ -1,1 +1,10 @@
-<p>home works!</p>
+<section class="container  pt-4 pb-4">
+    <mat-form-field appearance="fill">
+        <mat-label>File Extensions</mat-label>
+        <mat-select name="JPG">
+          <mat-option *ngFor="let extension of fileExtensions" [value]="extension">
+            {{extension}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+</section>

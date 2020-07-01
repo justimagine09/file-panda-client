@@ -6,7 +6,31 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+
+<style>
+  
+  .router-loading {
+        position: fixed;
+        bottom: 15px;
+        left: 15px;
+        z-index: 999;
+        display: flex;
+        flex-flow: row;
+        align-items: flex-end;
+        box-shadow: 3px 3px  4px rgba(0, 0, 0, 0.116);
+        padding: 12px;
+        border-radius: 8px;
+        height: 64px;
+        width: 150px;
+  }
+
+  .router-loading img {
+            width: 50px;
+  } 
+</style>
+
 <body>
   <app-root></app-root>
 </body>
