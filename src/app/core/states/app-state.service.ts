@@ -2,7 +2,9 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { ERouterState } from 'src/app/models/enums';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, retry } from 'rxjs/operators';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,16 +19,18 @@ export class AppStateService implements OnDestroy {
   private fileExtension$$ = new BehaviorSubject<string>('');
   readonly fileExtension$ = this.fileExtension$$.asObservable();
 
-  private fileExtensionsList$$ = new BehaviorSubject<string[]>([]);
+  private fileExtensionsList$$ = new BehaviorSubject<any[]>([]);
   readonly fileExtensionsList$ = this.fileExtensionsList$$.asObservable();
 
-  constructor() {
+  constructor(private httpClient: HttpClient) {
     this.observeSearchAndFileExtension();
     this.getFileExtension();
   }
 
   getFileExtension() {
-    // to do
+    this.httpClient.get(environment.apiURL + '/file_types', {observe: 'response'})
+    .pipe(retry(10))
+    .subscribe((response: HttpResponse<any>) => this.fileExtensionsList$$.next(response.body));
   }
 
   observeSearchAndFileExtension() {

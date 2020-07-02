@@ -3,7 +3,7 @@
         <mat-label>File Extensions</mat-label>
         <mat-select name="JPG">
           <mat-option *ngFor="let extension of fileExtensions" [value]="extension">
-            {{extension}}
+            {{extension.extension}}
           </mat-option>
         </mat-select>
       </mat-form-field>
