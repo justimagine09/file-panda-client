@@ -20,7 +20,7 @@
         </div>
             
         <ul class="search-mobile--result flex-grow-1 container">
-            <li class="d-flex align-items-center" *ngFor="let res of results;">
+            <li class="d-flex align-items-center" *ngFor="let res of results;" (click)="selectFile(res)">
                 <div class="image"  [style.background]="'url('+getFullPath(res)+')'">
                 </div>
                 <div class="descriptions">

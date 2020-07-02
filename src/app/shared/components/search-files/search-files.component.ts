@@ -30,6 +30,10 @@ export class SearchFilesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {}
 
+  selectFile(item) {
+    this.appStateService.selectFile(item);
+  }
+
   openMobileSearch() {
     this.isMobileSearchOpen = true;
   }

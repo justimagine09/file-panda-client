@@ -1,15 +1,15 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, OnDestroy } from '@angular/core';
 import { IFile } from 'src/app/models/interfaces';
 import { environment } from 'src/environments/environment';
+import { AppStateService } from 'src/app/core/states/app-state.service';
+import { untilDestroyed } from 'ngx-take-until-destroy';
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss']
 })
-export class GalleryComponent implements OnInit {
-  dataColumns: Array<Array<Array<IFile>>> = [];
-
+export class GalleryComponent implements OnInit, OnDestroy {
   selectedVideo;
   selectedImage;
 
@@ -34,20 +34,31 @@ export class GalleryComponent implements OnInit {
     this.dataColumns = columns;
   }
 
-  constructor() { }
+  constructor(private appStateService: AppStateService) { 
+    this.observeSelectedFile();
+  }
 
   ngOnInit() {
   }
 
-  showFile(item) {
-    // a video has a thumbnail
-    // so we check if it has a thumbnail then file is a video
+  ngOnDestroy() {
+    // Needed for untilDestroyed
+  }
 
-    if (!!item.thumbnail) {
-      this.selectedVideo = item;
-    } else {
-      this.selectedImage = item;
-    }
+  observeSelectedFile() {
+    this.appStateService.selectedVideo$.pipe(untilDestroyed(this))
+    .subscribe(value => this.selectedVideo = value);
+    
+    this.appStateService.selectedImage$.pipe(untilDestroyed(this))
+    .subscribe(value => this.selectedImage = value);
+  }
+
+  selectFile(item) {
+    this.appStateService.selectFile(item);
+  }
+
+  clearSelectedFile() {
+    this.appStateService.clearSelectedFile();
   }
 
   getFullPath(value) {

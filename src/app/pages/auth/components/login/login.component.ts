@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { typeWithParameters } from '@angular/compiler/src/render3/util';
+import { EPages } from 'src/app/models/enums';
 
 @Component({
   selector: 'app-login',
@@ -57,7 +58,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(formValues.email, formValues.password)
     .subscribe(response => {
-      this.router.navigate(['/', 'upload', 'jpg']).then();
+      this.router.navigate(['/', EPages.HOME]).then();
 
       this.isLoginLoading = false;
     }, (err) => {

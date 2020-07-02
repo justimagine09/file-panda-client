@@ -23,6 +23,13 @@ export class AppStateService implements OnDestroy {
   private fileExtensionsList$$ = new BehaviorSubject<any[]>([]);
   readonly fileExtensionsList$ = this.fileExtensionsList$$.asObservable();
 
+  private selectedVideo$$ = new BehaviorSubject<IFile>(null);
+  readonly selectedVideo$ = this.selectedVideo$$.asObservable();
+
+  
+  private selectedImage$$ = new BehaviorSubject<IFile>(null);
+  readonly selectedImage$ = this.selectedImage$$.asObservable();
+
   constructor(private httpClient: HttpClient) {
     // this.observeSearchAndFileExtension();
     this.getFileExtension();
@@ -82,6 +89,21 @@ export class AppStateService implements OnDestroy {
 
   setFileExtension(value) {
     this.fileExtension$$.next(value.id);
+  }
+
+  selectFile(file: IFile) {
+    // a video has a thumbnail
+    // so we check if it has a thumbnail then file is a video
+    if (!!file.thumbnail) {
+      this.selectedVideo$$.next(file);
+    } else {
+      this.selectedImage$$.next(file);
+    }
+  }
+
+  clearSelectedFile() {
+    this.selectedVideo$$.next(null);
+    this.selectedImage$$.next(null);
   }
 
   ngOnDestroy() {
