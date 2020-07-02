@@ -3,6 +3,7 @@ import { SafePipe } from '../../../../shared/pipe/safe.pipe';
 import { HttpClient, HttpHeaders, HttpEventType } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { FormsModule, FormBuilder, Validators } from '@angular/forms';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-mp4-form',
@@ -23,8 +24,7 @@ export class Mp4FormComponent implements OnInit {
 
   selectedIndex = 0;
 
-  uploadProgress = -80;
-  uploadScaleXProgress = 0;
+  uploadProgress = 0;
   isUploading = false;
 
   constructor(private httpClient: HttpClient, private fb: FormBuilder) { }
@@ -57,7 +57,7 @@ export class Mp4FormComponent implements OnInit {
     }
 
     this.uploadProgress = 0;
-    this.uploadScaleXProgress = 0;
+    this.isUploading = true;
 
     this.isUploading = true;
 
@@ -71,17 +71,25 @@ export class Mp4FormComponent implements OnInit {
       {observe: 'events', reportProgress: true})
     .subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {
-        this.uploadProgress = ((event.loaded / event.total) * 200) - 80;
-        this.uploadScaleXProgress = (event.loaded / event.total) * 1;
-      }
+        this.uploadProgress = (event.loaded / event.total);
+      } 
 
       if (event.type === HttpEventType.Response) {
-        this.isUploading = false;
+        this.resetComponentValues();
       }
     }, err => this.isUploading = false);
   }
 
-  public takeSnapshot(file) {
+  resetComponentValues(){
+    this.uploadProgress = 0;
+    this.isUploading = false;
+    this.form.reset();
+    this.files = [];
+    this.selectedIndex = 0;
+    this.thumbnail = 0;
+  }
+
+  takeSnapshot(file) {
     const canvasElement = <HTMLCanvasElement> document.createElement('CANVAS');
     const video = document.createElement('video');
     const context = canvasElement.getContext('2d');

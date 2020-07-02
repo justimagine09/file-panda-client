@@ -35,17 +35,5 @@
         </div>
     </div>
 
-    <div class="file-uploading d-flex flex-column align-items-center justify-content-center" *ngIf="isUploading">
-        <div class="file-uploading-content" style="width: 200px">
-            <h3 class="text-center mb-4">Uploading</h3>
-            <img src="assets/gifs/panda-bicycling.gif" width="80px" [style.transform]="'translateX('+ uploadProgress +'px)'">
-            <div class="loading-bar">
-                <div [style.transform]="'scaleX('+ uploadScaleXProgress +')'"></div>
-            </div>
-
-            <p *ngIf="uploadScaleXProgress >=  1" class="text-center">
-                Successfully Uploaded.
-            </p>
-        </div>
-    </div>
+    <app-upload-loading [uploadProgress]="uploadProgress" *ngIf="isUploading"></app-upload-loading>
 </div>

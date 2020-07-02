@@ -11,10 +11,11 @@ import { MatInputModule } from '@angular/material/input';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { UploadLoadingComponent } from './components/upload-loading/upload-loading.component';
 
 
 @NgModule({
-  declarations: [UploadComponent, Mp4FormComponent, JpgFormComponent],
+  declarations: [UploadComponent, Mp4FormComponent, JpgFormComponent, UploadLoadingComponent],
   imports: [
     CommonModule,
     UploadRoutingModule,

@@ -16,9 +16,8 @@ export class JpgFormComponent implements OnInit {
     description: ['']
   });
 
+  uploadProgress = 0;
   isUploading = false;
-  uploadProgress = -80;
-  uploadScaleXProgress = 0;
 
   constructor(private httpClient: HttpClient, private fb: FormBuilder) { }
 
@@ -44,15 +43,19 @@ export class JpgFormComponent implements OnInit {
       {observe: 'events', reportProgress: true})
     .subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {
-        this.uploadProgress = ((event.loaded / event.total) * 200) - 80;
-        this.uploadScaleXProgress = (event.loaded / event.total) * 1;
+        this.uploadProgress = (event.loaded / event.total);
       }
 
       if (event.type === HttpEventType.Response) {
-        this.isUploading = false;
-        this.uploadProgress = 0;
-        this.uploadScaleXProgress = 0;
+        this.resetComponentValues();
       }
     }, err => this.isUploading = false);
+  }
+
+  resetComponentValues() {
+    this.uploadProgress = 0;
+    this.isUploading = false;
+    this.files = [];
+    this.form.reset();
   }
 }
