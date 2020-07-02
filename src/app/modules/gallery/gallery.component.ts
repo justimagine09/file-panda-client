@@ -10,6 +10,9 @@ import { environment } from 'src/environments/environment';
 export class GalleryComponent implements OnInit {
   dataColumns: Array<Array<Array<IFile>>> = [];
 
+  selectedVideo;
+  selectedImage;
+
   @Input() set data(datas: any[]) {
     console.log(datas);
     if (datas === undefined) {
@@ -34,6 +37,17 @@ export class GalleryComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  showFile(item) {
+    // a video has a thumbnail
+    // so we check if it has a thumbnail then file is a video
+
+    if (!!item.thumbnail) {
+      this.selectedVideo = item;
+    } else {
+      this.selectedImage = item;
+    }
   }
 
   getFullPath(value) {

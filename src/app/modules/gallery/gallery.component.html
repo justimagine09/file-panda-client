@@ -1,10 +1,38 @@
 <div class="gallery-wrapper row">
   <div *ngFor="let items of dataColumns;" class="col-lg-3 col-md-6 col-sm-12 gallery-wrapper--col">
-    <div class="gallery-wrapper--col--content" *ngFor="let item of items;">
+    <div class="gallery-wrapper--col--content" *ngFor="let item of items;" (click)="showFile(item)">
       <img [src]="getFullPath(item.thumbnail || item.file_name)" class="w-100"/>
       <div class="gallery-wrapper--col--content--data">
-        <div class="gallery-title">{{file_name}}</div>
+        <div class="gallery-title">{{item.title | titlecase}}</div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="watch-video" *ngIf="selectedVideo" >
+  <div class="container">  
+    <div class="text-right mt-2 mb-2">
+     <button mat-icon-button (click)="selectedVideo = null"> <mat-icon>close</mat-icon></button>
+    </div>
+    <div class="video-wrapper">
+      <video controls class="w-100">
+        <source [src]="getFullPath(selectedVideo.file_name)" #video type="video/mp4" />
+      </video>
+    </div>
+    <h2>{{selectedVideo.title | titlecase}}</h2>
+    <p class="mb-3">{{selectedVideo.description}}</p>
+  </div>
+</div>
+
+<div class="view-image" *ngIf="selectedImage" >
+  <div class="container">  
+    <div class="text-right mt-2 mb-2">
+     <button mat-icon-button (click)="selectedImage = null"> <mat-icon>close</mat-icon></button>
+    </div>
+    <div class="video-wrapper">
+      <img [src]="getFullPath(selectedImage.file_name)" class="w-100"/>
+    </div>
+    <h2>{{selectedImage.title | titlecase}}</h2>
+    <p class="mb-3">{{selectedImage.description}}</p>
   </div>
 </div>
