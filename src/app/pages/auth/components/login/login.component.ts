@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(formValues.email, formValues.password)
     .subscribe(response => {
-      this.router.navigate(['/', 'upload', 'mp4']).then();
+      this.router.navigate(['/', 'upload', 'jpg']).then();
 
       this.isLoginLoading = false;
     }, (err) => {

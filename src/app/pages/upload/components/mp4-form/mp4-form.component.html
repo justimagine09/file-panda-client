@@ -1,4 +1,4 @@
-<div>
+<div class="form-wrapper">
     <h1>UPLOAD MP4 FILE</h1>
     <p>Drag File to the drop zone or click to browse</p>
     <ngx-dropzone (change)="onSelect($event)" multiple="false" accept="video/mp4" *ngIf="files.length <= 0">
@@ -48,4 +48,14 @@
 
     <ngx-dropzone #customThumbnail (change)="onAddedNewThumbnail($event)" multiple="false" accept="image/jpeg" class="d-none">
     </ngx-dropzone>
+
+    <div class="file-uploading d-flex flex-column align-items-center justify-content-center" *ngIf="isUploading">
+        <div class="file-uploading-content" style="width: 200px">
+            <h3 class="text-center mb-4">Uploading</h3>
+            <img src="assets/gifs/panda-bicycling.gif" width="80px" [style.transform]="'translateX('+ uploadProgress +'px)'">
+            <div class="loading-bar">
+                <div [style.transform]="'scaleX('+ uploadScaleXProgress +')'"></div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -8,7 +8,7 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
   styleUrls: ['./upload.component.scss']
 })
 export class UploadComponent implements OnInit, OnDestroy {
-  param: 'mp4' | 'jpg' | 'pdf' = 'mp4';
+  param: 'mp4' | 'jpg' = 'mp4';
   
   constructor(private activatedRoute: ActivatedRoute) { }
 
@@ -18,7 +18,7 @@ export class UploadComponent implements OnInit, OnDestroy {
     .subscribe(param => {
       const paramValue: any = (param.get('param') || '').toLocaleLowerCase();
 
-      if (['mp4', 'jpg', 'pdf'].includes(paramValue)) {
+      if (['mp4', 'jpg'].includes(paramValue)) {
         this.param = paramValue;
       }
     });

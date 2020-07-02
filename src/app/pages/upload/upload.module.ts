@@ -11,6 +11,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { MatInputModule } from '@angular/material/input';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -22,7 +23,9 @@ import { MatIconModule } from '@angular/material/icon';
     NgxDropzoneModule,
     MatInputModule,
     MatIconModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
 })
 export class UploadModule { }

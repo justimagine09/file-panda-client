@@ -1,3 +1,34 @@
+@import '../../../../../assets/scss/variables.scss';
+
+.form-wrapper {
+    position: relative;
+
+    .file-uploading {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 997;
+        background-color: #fff;
+
+        &-content {
+            overflow: hidden;
+        }
+    }
+
+    .loading-bar {
+        background-color: #eee;
+        width: 100%;
+
+        div {
+            height: 4px;
+            background-color: $primary;
+            transform-origin: left;
+        }
+    }
+}
+
 .drop-image {
     background-color: #eee;
     margin-top: 24px;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SafePipe } from '../../../../shared/pipe/safe.pipe';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpEventType } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-mp4-form',
@@ -10,11 +11,15 @@ import { HttpClient } from '@angular/common/http';
 export class Mp4FormComponent implements OnInit {
   files: File[] = [];
 
-  thumbnails: Array<{objectUrl: any, file?: any, type: string}> = [];
+  thumbnails: Array<{objectUrl?: any, file?: any, blob?: any, type?: string}> = [];
 
   thumbnail = null;
 
   selectedIndex = 0;
+
+  uploadProgress = -80;
+  uploadScaleXProgress = 0;
+  isUploading = false;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -27,8 +32,6 @@ export class Mp4FormComponent implements OnInit {
       file: event.addedFiles[0],
       type: 'file'
     });
-
-    console.log(event.addedFiles[0]);
 
     this.selectedIndex = this.thumbnails.length - 1;
   }
@@ -43,34 +46,33 @@ export class Mp4FormComponent implements OnInit {
   }
 
   async uploadFile() {
+    if (this.isUploading) {
+      return;
+    }
+
+    this.uploadProgress = 0;
+    this.uploadScaleXProgress = 0;
+
+    this.isUploading = true;
+
     const fb = new FormData();
+    fb.append('title', 'short title');
+    fb.append('description', 'long description');
     fb.append('video', this.files[0], 'video/mp4');
     fb.append('thumbnail', this.thumbnails[this.selectedIndex].file || this.thumbnails[this.selectedIndex].blob);
     
-    this.httpClient.post('http://localhost:8000/api/file', fb, {observe: 'response'})
-    .subscribe(value => console.log(value), err => console.log(err));
-  }
-
-  private async readFile(file: File): Promise<string | ArrayBuffer> {
-    return new Promise<string | ArrayBuffer>((resolve, reject) => {
-      const reader = new FileReader();
-  
-      reader.onload = e => {
-        return resolve((e.target as FileReader).result);
-      };
-  
-      reader.onerror = e => {
-        console.error(`FileReader failed on file ${file.name}.`);
-        return reject(null);
-      };
-  
-      if (!file) {
-        console.error('No file to read.');
-        return reject(null);
+    this.httpClient.post(environment.apiURL + '/file', fb,
+      {observe: 'events', reportProgress: true})
+    .subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.uploadProgress = ((event.loaded / event.total) * 200) - 80;
+        this.uploadScaleXProgress = (event.loaded / event.total) * 1;
       }
-  
-      reader.readAsDataURL(file);
-    });
+
+      if (event.type === HttpEventType.Response) {
+        this.isUploading = false;
+      }
+    }, err => this.isUploading = false);
   }
 
   public takeSnapshot(file) {
@@ -82,6 +84,7 @@ export class Mp4FormComponent implements OnInit {
     const snapshot = () => {
       video.currentTime = 25;
       video.play();
+      video.volume = 0;
       video.playbackRate = 9;
 
       let w: number, h: number, ratio: number;
@@ -98,9 +101,6 @@ export class Mp4FormComponent implements OnInit {
           objectUrl: window.URL.createObjectURL(blob),
           blob
         });
-
-        console.log(this.thumbnails);
-
       }, 'image/jpeg');
 
       setTimeout(() => {
