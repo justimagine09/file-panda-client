@@ -2,7 +2,7 @@
   <div class="container d-flex w-100 align-items-center">
     <img src="assets/pngs/logo.png" (click)="navigateHome()"  height="48" class="mr-2 logo--desktop"/>
     <img src="assets/pngs/logo-mobile.png" (click)="navigateHome()" height="48" class="mr-2 logo--mobile"/>
-    <app-search-files></app-search-files>
+    <app-search-files *ngIf="showSearch"></app-search-files>
     
     <div class="ml-auto">
       <button mat-button [matMenuTriggerFor]="addFile"><mat-icon>add</mat-icon> <span class="d-lg-inline d-md-inline d-sm-none">Add File</span></button>

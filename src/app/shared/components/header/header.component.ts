@@ -14,6 +14,7 @@ const VISIBLE_HEADER_ROUTE = ['home', 'upload'];
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   navVisible = false;
+  showSearch = false;
 
   constructor(private authService: AuthService, private routerState: RouterStateService, private router: Router) { }
 
@@ -24,6 +25,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.routerState.currentUrl$
     .pipe(untilDestroyed(this))
     .subscribe(url => {
+      this.showSearch = url === 'home';
       this.navVisible = VISIBLE_HEADER_ROUTE.includes(url);
     });
   }

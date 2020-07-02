@@ -10,6 +10,8 @@ import { untilDestroyed } from 'ngx-take-until-destroy';
   styleUrls: ['./gallery.component.scss']
 })
 export class GalleryComponent implements OnInit, OnDestroy {
+  dataColumns: Array<Array<Array<IFile>>> = [];
+
   selectedVideo;
   selectedImage;
 
