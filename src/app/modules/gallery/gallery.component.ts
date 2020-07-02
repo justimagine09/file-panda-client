@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { IFile } from 'src/app/models/interfaces';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-gallery',
@@ -10,9 +11,13 @@ export class GalleryComponent implements OnInit {
   dataColumns: Array<Array<Array<IFile>>> = [];
 
   @Input() set data(datas: any[]) {
+    console.log(datas);
+    if (datas === undefined) {
+      return;
+    }
+
     const columns = [[], [], [], []];
     let roundsCount = 0;
-
     // Put the files in each column
     datas.forEach(file_ => {
       columns[roundsCount].push(file_);
@@ -31,11 +36,7 @@ export class GalleryComponent implements OnInit {
   ngOnInit() {
   }
 
-  delete() {
-    alert('delete');
-  }
-
-  edit() {
-    alert('edit');
+  getFullPath(value) {
+    return environment.uploadsUrl + value;
   }
 }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SafePipe } from '../../../../shared/pipe/safe.pipe';
 import { HttpClient, HttpHeaders, HttpEventType } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { FormsModule, FormBuilder, Validators } from '@angular/forms';
@@ -67,12 +66,12 @@ export class Mp4FormComponent implements OnInit {
     fb.append('video', this.files[0], 'video/mp4');
     fb.append('thumbnail', this.thumbnails[this.selectedIndex].file || this.thumbnails[this.selectedIndex].blob);
     
-    this.httpClient.post(environment.apiURL + '/file', fb,
+    this.httpClient.post(environment.apiURL + '/file/upload/mp4', fb,
       {observe: 'events', reportProgress: true})
     .subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {
         this.uploadProgress = (event.loaded / event.total);
-      } 
+      }
 
       if (event.type === HttpEventType.Response) {
         this.resetComponentValues();

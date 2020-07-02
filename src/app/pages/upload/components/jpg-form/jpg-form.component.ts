@@ -39,7 +39,7 @@ export class JpgFormComponent implements OnInit {
     fb.append('description', this.form.value.description);
     fb.append('image', this.files[0], 'image/jpeg');
 
-    this.httpClient.post(environment.apiURL + '/file/jpg', fb,
+    this.httpClient.post(environment.apiURL + '/file/upload/jpg', fb,
       {observe: 'events', reportProgress: true})
     .subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {

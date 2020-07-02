@@ -1,14 +1,10 @@
 <div class="gallery-wrapper row">
-    <div *ngFor="let items of dataColumns;" class="col-lg-3 col-md-6 col-sm-12 gallery-wrapper--col">
-      <div class="gallery-wrapper--col--content" *ngFor="let item of items;">
-        <img [src]="'assets/sample/'+ item.url" class="w-100"/>
-        <div class="gallery-wrapper--col--content--data">
-          <div class="gallery-actions">
-            <span (click)="delete()">D</span>
-            <span (click)="edit()">E</span>
-          </div>
-          <div class="gallery-title">Short descriptionasd asda we asda adas qwe asdase we</div>
-        </div>
+  <div *ngFor="let items of dataColumns;" class="col-lg-3 col-md-6 col-sm-12 gallery-wrapper--col">
+    <div class="gallery-wrapper--col--content" *ngFor="let item of items;">
+      <img [src]="getFullPath(item.thumbnail || item.file_name)" class="w-100"/>
+      <div class="gallery-wrapper--col--content--data">
+        <div class="gallery-title">{{file_name}}</div>
       </div>
     </div>
   </div>
+</div>

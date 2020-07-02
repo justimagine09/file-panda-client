@@ -1,8 +1,8 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { untilDestroyed } from 'ngx-take-until-destroy';
-import { BehaviorSubject, combineLatest } from 'rxjs';
+import { BehaviorSubject, combineLatest, forkJoin, of } from 'rxjs';
 import { ERouterState } from 'src/app/models/enums';
-import { debounceTime, retry, switchMap } from 'rxjs/operators';
+import { debounceTime, retry, switchMap, take, catchError } from 'rxjs/operators';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { IFile } from 'src/app/models/interfaces';
@@ -17,14 +17,14 @@ export class AppStateService implements OnDestroy {
   private search$$ = new BehaviorSubject<string>('');
   readonly search$ = this.search$$.asObservable();
 
-  private fileExtension$$ = new BehaviorSubject<string>('');
+  private fileExtension$$ = new BehaviorSubject<any>(null);
   readonly fileExtension$ = this.fileExtension$$.asObservable();
 
   private fileExtensionsList$$ = new BehaviorSubject<any[]>([]);
   readonly fileExtensionsList$ = this.fileExtensionsList$$.asObservable();
 
   constructor(private httpClient: HttpClient) {
-    this.observeSearchAndFileExtension();
+    // this.observeSearchAndFileExtension();
     this.getFileExtension();
   }
 
@@ -56,6 +56,23 @@ export class AppStateService implements OnDestroy {
 
   changeCategory(value: string) {
     this.fileExtension$$.next(value);
+  }
+
+  searchFiles() {
+    return forkJoin([this.search$.pipe(take(1)), this.fileExtension$.pipe(take(1))])
+    .pipe(
+      switchMap((res) => {
+        const params = {text: res[0], file_type: res[1]};
+        if (!res[1]) {
+          delete params.file_type;
+        }
+        return this.httpClient.get(environment.apiURL + '/file/search',
+        {observe: 'response', params});
+      }));
+  }
+
+  setFileExtension(value) {
+    this.fileExtension$$.next(value.id);
   }
 
   ngOnDestroy() {

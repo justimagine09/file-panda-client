@@ -37,7 +37,7 @@
         <div class="col-12">
             <h4 class="mt-2">Select thumbnail</h4>
             <div>
-                <img class="m-1" [class.selected-index]="selectedIndex === i" (click)="selectedIndex = i" height="100px" *ngFor="let thumbnail of thumbnails; let i = index" [class.d-none]="i == 0" [src]="thumbnail.objectUrl | safe:'resourceUrl'" />
+                <img class="m-1" [class.selected-index]="selectedIndex === i" (click)="selectedIndex = i" height="100px" *ngFor="let thumbnail of thumbnails; let i = index" [class.d-none]="i == 0" [src]="thumbnail.objectUrl | safe:'url'" />
                 <div (click)="customThumbnail.showFileSelector()" class="add-custom-thumbnail d-flex justify-content-center align-items-center m-2">
                     <mat-icon>add</mat-icon>
                 </div>

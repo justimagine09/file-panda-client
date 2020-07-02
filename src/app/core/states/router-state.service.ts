@@ -10,7 +10,7 @@ import { ERouterState } from 'src/app/models/enums';
 export class RouterStateService implements OnDestroy {
   private state$$ = new BehaviorSubject<ERouterState>(null);
   readonly state$ = this.state$$.asObservable();
-  
+
   private currentUrl$$ = new BehaviorSubject<string>(null);
   readonly currentUrl$ = this.currentUrl$$.asObservable();
 
@@ -22,7 +22,7 @@ export class RouterStateService implements OnDestroy {
       } else if (event instanceof NavigationEnd) {
         this.state$$.next(ERouterState.END);
         const urls = this.router.url.split('/');
-        
+
         this.currentUrl$$.next(urls[1]);
       }
     });

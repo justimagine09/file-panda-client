@@ -2,9 +2,13 @@
     <mat-form-field appearance="fill">
         <mat-label>File Extensions</mat-label>
         <mat-select name="JPG">
-          <mat-option *ngFor="let extension of fileExtensions" [value]="extension">
+          <mat-option *ngFor="let extension of fileExtensions" [value]="extension"  (click)="categoryChanged(extension)">
             {{extension.extension}}
           </mat-option>
         </mat-select>
       </mat-form-field>
+
+      <div>
+        <app-gallery [data]="appState"></app-gallery>
+      </div>
 </section>
