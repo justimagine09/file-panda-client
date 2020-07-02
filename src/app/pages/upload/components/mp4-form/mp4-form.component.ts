@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SafePipe } from '../../../../shared/pipe/safe.pipe';
 import { HttpClient, HttpHeaders, HttpEventType } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { FormsModule, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-mp4-form',
@@ -9,6 +10,11 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./mp4-form.component.scss']
 })
 export class Mp4FormComponent implements OnInit {
+  form = this.fb.group({
+    title: ['', Validators.required],
+    description: ['']
+  });
+
   files: File[] = [];
 
   thumbnails: Array<{objectUrl?: any, file?: any, blob?: any, type?: string}> = [];
@@ -21,7 +27,7 @@ export class Mp4FormComponent implements OnInit {
   uploadScaleXProgress = 0;
   isUploading = false;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private fb: FormBuilder) { }
 
   ngOnInit() {
   }
@@ -56,8 +62,8 @@ export class Mp4FormComponent implements OnInit {
     this.isUploading = true;
 
     const fb = new FormData();
-    fb.append('title', 'short title');
-    fb.append('description', 'long description');
+    fb.append('title', this.form.value.title);
+    fb.append('description', this.form.value.description);
     fb.append('video', this.files[0], 'video/mp4');
     fb.append('thumbnail', this.thumbnails[this.selectedIndex].file || this.thumbnails[this.selectedIndex].blob);
     

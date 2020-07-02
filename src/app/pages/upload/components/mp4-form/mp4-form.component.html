@@ -16,20 +16,20 @@
         </div>
         
         <div class="col-lg-6 col-md-5 col-sm-12">  
-            <form class="pt-2 pb-2 d-flex flex-column">
+            <form class="pt-2 pb-2 d-flex flex-column" [formGroup]="form">
                 <mat-form-field>
                   <mat-label>Title</mat-label>
-                  <input matInput placeholder="Title">
+                  <input matInput placeholder="Title" formControlName="title">
                 </mat-form-field>
               
                 <mat-form-field>
                   <mat-label>Description</mat-label>
-                  <textarea matInput placeholder="Description"></textarea>
+                  <textarea matInput placeholder="Description" formControlName="description"></textarea>
                 </mat-form-field>
 
                 <div class="text-right">
                     <button mat-button class="mr-2">CANCEL</button>
-                    <button mat-button class="primary-button" (click)="uploadFile()" type="button">SUBMIT</button>
+                    <button mat-button class="primary-button" (click)="uploadFile()" type="button" [disabled]="form.invalid || files.length === 0 || selectedIndex === 0">SUBMIT</button>
                 </div>
             </form>
         </div>
