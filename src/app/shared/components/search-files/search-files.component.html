@@ -15,16 +15,17 @@
     <div class="search-mobile d-flex flex-column" [class.is-open]="isMobileSearchOpen">
         <div class="search-mobile--control d-flex align-items-center container">
             <mat-icon class="mat-icon">search</mat-icon>
-            <input placeholder="Search files.." class="flex-grow-1"/>
+            <input placeholder="Search files.." class="flex-grow-1" #mobileSearch (keyup)="searchFileMobileMode(mobileSearch)"/>
             <mat-icon class="mat-icon" (click)="closeMobileSearch()">close</mat-icon>
         </div>
             
         <ul class="search-mobile--result flex-grow-1 container">
-            <li class="d-flex align-items-center">
-                <div class="image"></div>
+            <li class="d-flex align-items-center" *ngFor="let res of results;">
+                <div class="image"  [style.background]="'url('+getFullPath(res)+')'">
+                </div>
                 <div class="descriptions">
-                    <div>Title</div>
-                    <div>Descriptions</div>
+                    <div>{{res.title}}</div>
+                    <small>{{res.description}}</small>
                 </div>
             </li>
         </ul>

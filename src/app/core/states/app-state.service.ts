@@ -71,6 +71,15 @@ export class AppStateService implements OnDestroy {
       }));
   }
 
+  searchFileMobileMode() {
+    return this.search$.pipe(take(1))
+    .pipe(
+      switchMap((res) => {
+        return this.httpClient.get(environment.apiURL + '/file/search',
+        {observe: 'response', params: {text: res}});
+      })).pipe(catchError(e => of([])));
+  }
+
   setFileExtension(value) {
     this.fileExtension$$.next(value.id);
   }

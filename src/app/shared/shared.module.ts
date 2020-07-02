@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { SafePipe } from './pipe/safe.pipe';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -15,6 +16,7 @@ import { SafePipe } from './pipe/safe.pipe';
         SafePipe,
     ],
     imports: [
+        CommonModule,
         MatIconModule,
         MatMenuModule,
         MatButtonModule
