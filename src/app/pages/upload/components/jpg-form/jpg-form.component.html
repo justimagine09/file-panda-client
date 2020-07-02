@@ -2,7 +2,7 @@
     <h1>UPLOAD JPG FILE</h1>
     <p>Drag File to the drop zone or click to browse</p>
     <ngx-dropzone (change)="onSelect($event)" multiple="false" accept="image/jpeg" *ngIf="files.length <= 0">
-        <ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+        <ngx-dropzone-label>Drop File Here!</ngx-dropzone-label>
         <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
             <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
         </ngx-dropzone-preview>

@@ -30,5 +30,5 @@ import { AuthService } from './core/auth/auth.service';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
  }

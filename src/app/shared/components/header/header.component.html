@@ -1,16 +1,15 @@
-<div class="main-header">
+<div class="main-header" [class.d-none]="!navVisible">
   <div class="container d-flex w-100 align-items-center">
-    <img src="assets/pngs/logo.png"  height="48" class="mr-2 logo--desktop"/>
-    <img src="assets/pngs/logo-mobile.png" height="48" class="mr-2 logo--mobile"/>
+    <img src="assets/pngs/logo.png" (click)="navigateHome()"  height="48" class="mr-2 logo--desktop"/>
+    <img src="assets/pngs/logo-mobile.png" (click)="navigateHome()" height="48" class="mr-2 logo--mobile"/>
     <app-search-files></app-search-files>
     
    
     <div class="ml-auto">
       <button mat-button [matMenuTriggerFor]="addFile"><mat-icon>add</mat-icon> <span class="d-lg-inline d-md-inline d-sm-none">Add File</span></button>
       <mat-menu #addFile="matMenu">
-        <button mat-menu-item>JPG</button>
-        <button mat-menu-item>PDF</button>
-        <button mat-menu-item>MP4</button>
+        <button mat-menu-item (click)="navigateToUpload('jpg')">JPG</button>
+        <button mat-menu-item (click)="navigateToUpload('mp4')">MP4</button>
       </mat-menu>
 
       <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>menu</mat-icon></button>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IUser } from 'src/app/models/interfaces/i-user';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { tap, flatMap, catchError } from 'rxjs/operators';
 import { IAuthToken, IRegisterParam, IRegistrationResponse } from 'src/app/models/interfaces';
 import { HttpClient, HttpResponse } from '@angular/common/http';
@@ -46,7 +46,16 @@ export class AuthService {
       tap((response: HttpResponse<IAuthToken>) => {
         this.token$$.next(response.body);
         this.cookieService.set('token', response.body.access_token);
-      }), catchError(e => this.router.navigate(['/', 'auth'])));
+      }), catchError(e => this.router.navigate(['/', EPages.AUTH])));
+  }
+
+  authPageGuard() {
+    return this.httpClient.post<IAuthToken>(`${environment.apiURL}/auth/refresh`, {}, {observe: 'response'})
+    .pipe(
+      tap((response: HttpResponse<IAuthToken>) => {
+        this.token$$.next(response.body);
+        this.router.navigate(['/', EPages.HOME]);
+      }), catchError(e => of(true)));
   }
 
   logout() {
