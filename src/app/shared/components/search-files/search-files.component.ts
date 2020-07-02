@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppStateService } from 'src/app/core/states/app-state.service';
 
 @Component({
   selector: 'app-search-files',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class SearchFilesComponent implements OnInit {
   isMobileSearchOpen = false;
 
-  constructor() { }
+  constructor(private appStateService: AppStateService) { }
 
   ngOnInit() {
   }
@@ -19,6 +20,10 @@ export class SearchFilesComponent implements OnInit {
 
   closeMobileSearch() {
     this.isMobileSearchOpen = false;
+  }
+
+  searchFilesDesktopMode($el) {
+    this.appStateService.search($el.value)
   }
 
 }

@@ -1,7 +1,7 @@
 <div class="search-wrapper desktop"> 
     <div class="search-wrapper-controls d-flex align-items-center" (click)="openMobileSearch()">
         <mat-icon class="mat-icon">search</mat-icon>
-        <input placeholder="Search files.."/>
+        <input placeholder="Search files.." #desktopSearch (keyup)="searchFilesDesktopMode(desktopSearch)"/>
     </div>
 
     <div class="search-wrapper--result"></div>
