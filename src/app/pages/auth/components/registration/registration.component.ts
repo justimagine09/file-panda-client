@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
+import { EPages } from 'src/app/models/enums';
 
 @Component({
   selector: 'app-registration',
@@ -67,6 +68,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
     this.authService.register(this.registrationForm.value)
     .subscribe(value => {
+      this.router.navigate(['/', EPages.HOME]).then();
       this.isRegisterLoading = false;
     }, err => {
       if (((err || {error: null} as any).error || {error: null} as any).errors['email']) {
